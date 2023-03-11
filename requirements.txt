@@ -1,0 +1,6 @@
+Django==4.1
+djangorestframework==3.13.1
+drf-spectacular==0.23.1
+pillow==9.2.0
+psycopg2==2.9.3
+django-cors-headers==3.13.0
