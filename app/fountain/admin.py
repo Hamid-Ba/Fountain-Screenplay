@@ -6,7 +6,7 @@ import datetime
 class FrameAdmin(admin.ModelAdmin):
     """Frame Admin Model"""
 
-    list_display = ("title","code", "type", "duration", "x_axis", "y_axis")
+    list_display = ("title", "code", "type", "duration", "x_axis", "y_axis")
     list_filter = ("type",)
     search_fields = ("title",)
 
