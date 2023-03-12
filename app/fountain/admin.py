@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Frame
+from . import models
 import datetime
 
 
@@ -25,4 +25,18 @@ class FrameAdmin(admin.ModelAdmin):
         super().save_model(request, obj, form, change)
 
 
-admin.site.register(Frame, FrameAdmin)
+class PackageAdmin(admin.ModelAdmin):
+    list_display = ("order", "repeat", "frame")
+    list_filter = ("frame",)
+    search_fields = ("order", "repeat", "frame__title")
+
+
+class FountainAdmin(admin.ModelAdmin):
+    list_display = ("title",)
+    filter_horizontal = ("packages",)
+    search_fields = ("title", "packages__order", "packages__frame__title")
+
+
+admin.site.register(models.Frame, FrameAdmin)
+admin.site.register(models.Package, PackageAdmin)
+admin.site.register(models.Fountain, FountainAdmin)
