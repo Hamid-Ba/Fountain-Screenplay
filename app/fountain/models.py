@@ -28,3 +28,28 @@ class Frame(models.Model):
     duration = models.DurationField(null=True, blank=True)
     x_axis = models.IntegerField(default=0)
     y_axis = models.IntegerField(default=0)
+
+    def __str__(self) -> str:
+        return self.frame.title
+
+
+class Package(models.Model):
+    """Collection Frame Model"""
+
+    order = models.IntegerField(null=False, blank=False)
+    repeat = models.IntegerField(null=True, blank=True, default=1)
+
+    frame = models.ForeignKey(Frame, on_delete=models.CASCADE)
+
+    def __str__(self) -> str:
+        return self.frame.title + " " + self.order + " " + self.repeat
+
+
+class Fountain(models.Model):
+    """Collection Model"""
+
+    title = models.CharField(max_length=125, null=False, blank=False)
+    packages = models.ManyToManyField(Package, related_name="fountains")
+
+    def __str__(self) -> str:
+        return self.title
