@@ -1,4 +1,4 @@
-from rest_framework import mixins,generics,viewsets
+from rest_framework import viewsets
 
 # Create your views here.
 
