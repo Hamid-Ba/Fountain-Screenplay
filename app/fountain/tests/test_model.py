@@ -82,7 +82,7 @@ class PackageModelTest(TestCase):
         self.assertEqual(package.frame, self.frame)
 
 
-class FountainModelTestCase(TestCase):
+class FountainModelTest(TestCase):
     def setUp(self):
         self.frame = models.Frame.objects.create(title="Test Frame")
         self.package = models.Package.objects.create(order=1, frame=self.frame)

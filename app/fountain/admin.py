@@ -32,7 +32,7 @@ class PackageAdmin(admin.ModelAdmin):
 
 
 class FountainAdmin(admin.ModelAdmin):
-    list_display = ("title",)
+    list_display = ("code", "title",)
     filter_horizontal = ("packages",)
     search_fields = ("title", "packages__order", "packages__frame__title")
 

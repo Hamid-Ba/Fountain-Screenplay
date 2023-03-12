@@ -11,6 +11,12 @@ def image_file_path(instance, filename):
     return os.path.join("uploads", "images", f"{instance.code}.{ext}")
 
 
+def music_file_path(instance, filename):
+    """Generate file path for category image"""
+    _, ext = os.path.splitext(filename)
+    return os.path.join("uploads", "music", f"{instance.code}.{ext}")
+
+
 class Frame(models.Model):
     """Frame Model"""
 
@@ -48,8 +54,10 @@ class Package(models.Model):
 class Fountain(models.Model):
     """Collection Model"""
 
+    code = models.UUIDField(default=uuid4, editable=False, unique=True, db_index=True)
     title = models.CharField(max_length=125, null=False, blank=False)
     packages = models.ManyToManyField(Package, related_name="fountains")
+    music = models.FileField(null=True, blank=True, upload_to=music_file_path)
 
     def __str__(self) -> str:
         return self.title
