@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "rest_framework.authtoken",
     "drf_spectacular",
     "core",
-    "fountain",
+    "fountain.apps.FountainConfig",
 ]
 
 MIDDLEWARE = [
