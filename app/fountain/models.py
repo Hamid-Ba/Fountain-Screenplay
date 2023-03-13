@@ -16,12 +16,15 @@ def music_file_path(instance, filename):
     _, ext = os.path.splitext(filename)
     return os.path.join("uploads", "music", f"{instance.code}.{ext}")
 
+
 class FrameManager(models.Manager):
     """Frame Manager"""
+
     def fill_analyzed_image(self, frame_id, image):
         frame = self.filter(id=frame_id).first()
         frame.analyzed_image = image
         frame.save()
+
 
 class Frame(models.Model):
     """Frame Model"""
@@ -50,10 +53,11 @@ class Frame(models.Model):
 
     def __str__(self) -> str:
         return self.frame.title
-    
+
     def fill_analyzed_image(self, image):
         self.analyzed_image = image
         self.save()
+
 
 class Package(models.Model):
     """Collection Frame Model"""
