@@ -52,7 +52,7 @@ class Frame(models.Model):
     objects = FrameManager()
 
     def __str__(self) -> str:
-        return self.frame.title
+        return self.title
 
     def fill_analyzed_image(self, image):
         self.analyzed_image = image
