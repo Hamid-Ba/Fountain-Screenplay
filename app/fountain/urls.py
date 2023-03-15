@@ -12,5 +12,6 @@ router.register("fount", views.FountainViewSet)
 router.register("package", views.PackagesList)
 
 urlpatterns = [
-    path("", include(router.urls))
+    path("", include(router.urls)),
+    path("set_music/<int:pk>", views.FountainSetMusic.as_view())
 ]

@@ -16,12 +16,12 @@ class PackageSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class FountainSerializer(serializers.ModelSerializer):
-    packages = PackageSerializer(many=True)
+    packages = PackageSerializer(many=True,required=False)
 
     class Meta:
         model = models.Fountain
         fields = "__all__"
-        read_only_fields = ["code"]
+        read_only_fields = ["code","music"]
 
     def _create_packages(self,packages):
         packs_id = []
@@ -35,6 +35,12 @@ class FountainSerializer(serializers.ModelSerializer):
         for pack in packs_id:
             pack = models.Package.objects.get(id=pack)
             fount.packages.add(pack)
+
+    def validate(self, attrs):
+        if attrs.get("packages") is None :
+            msg = "enter packages please"
+            raise serializers.ValidationError(msg)
+        return attrs
 
     def create(self, validated_data):
         packs = validated_data.pop("packages",None)
@@ -65,3 +71,8 @@ class FountainSerializer(serializers.ModelSerializer):
             })
 
         return rep
+    
+class FountainMusicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Fountain
+        fields = ["music"]

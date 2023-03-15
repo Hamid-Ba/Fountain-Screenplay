@@ -75,8 +75,12 @@ class Fountain(models.Model):
 
     code = models.UUIDField(default=uuid4, editable=False, unique=True, db_index=True)
     title = models.CharField(max_length=125, null=False, blank=False)
-    packages = models.ManyToManyField(Package, related_name="fountains")
+    packages = models.ManyToManyField(Package,default=None,blank=True, related_name="fountains")
     music = models.FileField(null=True, blank=True, upload_to=music_file_path)
 
     def __str__(self) -> str:
         return self.title
+    
+    def set_music(self,music):
+        self.music = music
+        self.save()

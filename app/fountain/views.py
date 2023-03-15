@@ -1,4 +1,8 @@
-from rest_framework import viewsets
+from rest_framework import viewsets , generics, views ,response ,status
+from rest_framework.decorators import action
+from django.shortcuts import get_object_or_404
+
+
 
 # Create your views here.
 
@@ -17,3 +21,7 @@ class PackagesList(viewsets.ModelViewSet):
 class FountainViewSet(viewsets.ModelViewSet):
     queryset = models.Fountain.objects.all()
     serializer_class = serializers.FountainSerializer
+
+class FountainSetMusic(generics.UpdateAPIView):
+    queryset = models.Fountain.objects.all()
+    serializer_class = serializers.FountainMusicSerializer
