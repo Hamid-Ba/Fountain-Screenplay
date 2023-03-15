@@ -8,5 +8,9 @@ app_name = "fountain"
 router = DefaultRouter()
 
 router.register("frame", views.FrameViewSet)
+router.register("fount", views.FountainViewSet)
+router.register("package", views.PackagesList)
 
-urlpatterns = [path("", include(router.urls))]
+urlpatterns = [
+    path("", include(router.urls))
+]

@@ -5,6 +5,7 @@ from uuid import uuid4
 from django.contrib.sites.models import Site
 
 
+IMAGE_PATH = "media/uploads/images"
 
 class ImageProcess:
     def path_to_save(self, the_image):
@@ -50,3 +51,5 @@ class ImageProcess:
             return {"binary": np_img, "bw_image": image_name}
         except:
             pass
+
+procces = ImageProcess()

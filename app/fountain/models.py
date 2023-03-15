@@ -58,7 +58,6 @@ class Frame(models.Model):
         self.analyzed_image = image
         self.save()
 
-
 class Package(models.Model):
     """Collection Frame Model"""
 
