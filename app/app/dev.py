@@ -96,10 +96,10 @@ WSGI_APPLICATION = "app.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "LocalFountain",
+        "NAME": "fountain",
         "HOST": "localhost",
-        "USER": "postgres",
-        "PASSWORD": "09155490422HamidBa",
+        "USER": "fountain",
+        "PASSWORD": "fountain",
         "PORT": "5432",
     }
 }

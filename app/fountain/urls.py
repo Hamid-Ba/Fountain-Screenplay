@@ -13,5 +13,6 @@ router.register("package", views.PackagesList)
 
 urlpatterns = [
     path("", include(router.urls)),
-    path("set_music/<int:pk>", views.FountainSetMusic.as_view())
+    path("set_music/<int:pk>", views.FountainSetMusic.as_view()),
+    path("text/<int:fount_id>", views.TextOutputViewSet.as_view()),
 ]

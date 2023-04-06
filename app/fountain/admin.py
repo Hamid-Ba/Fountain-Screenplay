@@ -1,12 +1,11 @@
 from django.contrib import admin
-from . import models
-import datetime
+from fountain import models
 
 
 class FrameAdmin(admin.ModelAdmin):
     """Frame Admin Model"""
 
-    list_display = ("title", "code", "type", "duration", "x_axis", "y_axis")
+    list_display = ("title", "code", "type", "x_axis", "y_axis")
     list_filter = ("type",)
     search_fields = ("title",)
 
@@ -14,15 +13,19 @@ class FrameAdmin(admin.ModelAdmin):
         (None, {"fields": ("title", "type", "orginal_image")}),
         (
             "Optional Fields",
-            {"fields": ("analyzed_image", "duration", "x_axis", "y_axis")},
+            {"fields": ("x_axis", "y_axis")},
+        ),
+        (
+            "Analyze Fields",
+            {
+                "fields": (
+                    "analyzed_image",
+                    "binary_code",
+                    "reverse_binary_code",
+                )
+            },
         ),
     )
-
-    def save_model(self, request, obj, form, change):
-        if not obj.pk:
-            # Only set duration on creation
-            obj.duration = datetime.timedelta(minutes=5)
-        super().save_model(request, obj, form, change)
 
 
 class PackageAdmin(admin.ModelAdmin):

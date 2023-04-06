@@ -3,9 +3,9 @@ from django.urls import reverse_lazy
 from rest_framework import status
 from rest_framework.test import APIClient
 from django.core.files.uploadedfile import SimpleUploadedFile
+from django.contrib.auth import get_user_model
 from PIL import Image
 import tempfile
-from datetime import timedelta
 
 from .. import models
 from .. import serializers
@@ -19,12 +19,32 @@ def create_frame(title, orginal_image):
     )
 
 
+def create_user(phone, password):
+    """Helper Function To Create a User"""
+    return get_user_model().objects.create(phone=phone, password=password)
+
+
+class PublicTest(TestCase):
+    """Tests Which Does Not Need User To Be Authenticated"""
+
+    def setUp(self):
+        self.client = APIClient()
+
+    def test_return_unauthorized(self):
+        """Test if user is unauthorized"""
+        url = reverse_lazy("fountain:frame-list")
+        res = self.client.get(url)
+        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+
+
 class FrameTest(TestCase):
     """Frame API Tests"""
 
     def setUp(self):
+        user = create_user("09151498722", "admin")
         self.frame_1 = None
         self.client = APIClient()
+        self.client.force_authenticate(user)
 
     def tearDown(self):
         if self.frame_1:
@@ -81,7 +101,6 @@ class FrameTest(TestCase):
         payload = {
             "type": self.frame_1.type,
             "title": "Update Frame 1",
-            "duration": timedelta(seconds=3),
             "x_axis": self.frame_1.x_axis,
             "y_axis": self.frame_1.y_axis,
         }
@@ -109,7 +128,7 @@ class FrameTest(TestCase):
     def test_patch_frame_should_work_properly(self):
         """Test Patch Frame API"""
         self.frame_1 = create_frame("Frame 1", "frame1.png")
-        payload = {"title": "Update Frame 1", "duration": timedelta(seconds=3)}
+        payload = {"title": "Update Frame 1"}
 
         url = reverse_lazy("fountain:frame-detail", args=(self.frame_1.id,))
         res = self.client.patch(url, payload, format="multipart")
